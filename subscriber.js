@@ -5,6 +5,8 @@ const fs = require("fs");
 const BROKER_URL = "mqtt://broker.hivemq.com";
 const TOPIC = "jaliko/smart-air/air/data";
 
+const DB_FILE = "air-quality-data.jsonl";   
+
 const client = mqtt.connect(BROKER_URL, {
   connectTimeout: 10_000,
   reconnectPeriod: 2_000,
