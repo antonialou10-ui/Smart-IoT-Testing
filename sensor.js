@@ -1,7 +1,26 @@
+const crypto = require('crypto');
+const sensorData = {
+    temperature: 30.2, 
+    humidity: 70,      
+    airQuality: 450,   
+    timestamp: Date.now()
+};
+
+function hashData(data) {
+    const dataString = JSON.stringify(data);
+    return crypto.createHash('sha256').update(dataString).digest('hex');
+}
+
+const dataHash = hashData(sensorData);
+const payload = {
+    ...sensorData,
+    dataIntegrityHash: dataHash
+};
+
+console.log("Data berhasil di-hash dan siap diproses ke Smart Contract:", payload);
 const mqtt = require("mqtt");
 const BROKER_URL = "mqtt://broker.hivemq.com";
 
-// Use a specific topic to avoid conflicts with other users
 const TOPIC = "jaliko/smart-air/air/data";
 
 const DEVICE_ID = "esp32-air-001";
